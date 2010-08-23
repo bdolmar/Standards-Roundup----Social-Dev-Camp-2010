@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>LavaLamp 1</title>
+    <script src="scripts/prototype.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/sprites/sprite.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/sprites/rectangle.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/sprites/ball.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/sprites/framerate_counter.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/controllers/scene_controller.js" type="text/javascript" charset="utf-8"></script>
+    
+    
+    <script type="text/javascript" charset="utf-8">
+    
+        var main = function(){
+            var canvas = document.getElementById('bouncing_balls');
+            var context = canvas.getContext("2d");
+            var scene = new SceneController(context, {x: 0, y: 0, width: canvas.width, height: canvas.height});
+
+            var gradient = context.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(.5, "#eeeeee");
+            gradient.addColorStop(1, "#999999");
+
+            var background = new Rectangle(gradient, null);
+            background.width = canvas.width;
+            background.height = canvas.height;
+            scene.addChild(background);
+            
+            for(var i = 0; i < 1000; i++){
+                var channels = []; 
+                var fillColor = "rgb(" + Math.round(Math.random()*255) + "," + Math.round(Math.random()*255) + ","+ Math.round(Math.random()*255) + ")";
+                var ball = new Ball(fillColor, "#ffffff");
+                ball.radius = Math.round(Math.random()*25 + 10);
+                ball.x = Math.round(Math.random()*(canvas.width - 2*ball.radius))+ball.radius;
+                ball.y = Math.round(Math.random()*(canvas.height- 2*ball.radius))+ball.radius;
+                scene.addChild(ball)
+            }
+            
+            var framerateCounter = new FramerateCounter("#000000");
+            framerateCounter.x = 10;
+            framerateCounter.y = 10;
+            scene.addChild(framerateCounter);
+            
+            scene.startUpdate();
+        }
+    </script>
+</head>
+<body>
+    <canvas id="bouncing_balls" width="960" height="576"></canvas>
+    
+    <script type="text/javascript" charset="utf-8">
+        main();
+    </script>
+</body>
+</html>
