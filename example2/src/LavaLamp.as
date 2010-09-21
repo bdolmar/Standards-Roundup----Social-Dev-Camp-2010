@@ -12,7 +12,7 @@ package {
 	import sprites.FramerateCounter;
 	import sprites.IUpdateable;
 
-	[SWF(width="960", height="576", framerate="30")]
+	[SWF(width="960", height="576", frameRate="60")]
 	public class LavaLamp extends Sprite
 	{
 		private var _lastUpdate:Number;

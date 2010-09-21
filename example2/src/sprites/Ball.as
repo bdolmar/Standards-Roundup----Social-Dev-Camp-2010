@@ -45,12 +45,14 @@ package sprites
 		
 		public function update(elapsedTime:Number, bounds:Rectangle):void
 		{
-			x += _velocity.x;
-			y += _velocity.y;
-			if(x - _radius < bounds.x || x + _radius > bounds.x + bounds.width){
+			x += _velocity.x*elapsedTime;
+			y += _velocity.y*elapsedTime;
+			if((x - _radius < bounds.x && _velocity.x < 0) || 
+			   (x + _radius > bounds.x + bounds.width && _velocity.x > 0)){
 				_velocity.x = _velocity.x * -1;
 			}
-			if(y - _radius < bounds.y || y + _radius > bounds.y + bounds.height){
+			if((y - _radius < bounds.y && _velocity.y < 0) || 
+			   (y + _radius > bounds.y + bounds.height && _velocity.y > 0)){
 				_velocity.y = _velocity.y * -1;
 			}
 		}
@@ -58,8 +60,8 @@ package sprites
 		private function generateRandomVelocity():Point
 		{
 			_velocity = new Point();
-			_velocity.x = Math.random()*Math.random()*5+3;
-			_velocity.y = Math.random()*Math.random()*5+3;
+			_velocity.x = (Math.random()*Math.random()*5+3)/32;
+			_velocity.y = (Math.random()*Math.random()*5+3)/32;
 			Math.random() > .5 ? _velocity.x : _velocity.x * -1;
 			Math.random() > .5 ? _velocity.y : _velocity.y * -1;
 			return _velocity;

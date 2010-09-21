@@ -27,12 +27,14 @@ var Ball = Class.create(Sprite, {
   },
   update: function($super, elapsedTime, bounds) {
 	$super(elapsedTime, bounds);
-	this.x += this.velocity.x;
-	this.y += this.velocity.y;
-	if(this.x - this.radius < bounds.x || this.x + this.radius > bounds.x + bounds.width){
+	this.x += this.velocity.x*elapsedTime;
+	this.y += this.velocity.y*elapsedTime;
+	if((this.x - this.radius < bounds.x && this.velocity.x < 0) ||
+	   (this.x + this.radius > bounds.x + bounds.width && this.velocity.x > 0)){
 		this.velocity.x = this.velocity.x * -1;
 	}
-	if(this.y - this.radius < bounds.y || this.y + this.radius > bounds.y + bounds.height){
+	if((this.y - this.radius < bounds.y && this.velocity.y < 0) || 
+	   (this.y + this.radius > bounds.y + bounds.height && this.velocity.y > 0)){
 		this.velocity.y = this.velocity.y * -1;
 	}
   },
@@ -40,8 +42,8 @@ var Ball = Class.create(Sprite, {
 // Utility Methods
   generateRandomVelocity: function(){
 	var velocity = {x: 0, y:0};
-	velocity.x = Math.random()*Math.random()*5+3;
-	velocity.y = Math.random()*Math.random()*5+3;
+	velocity.x = (Math.random()*Math.random()*5+3)/32;
+	velocity.y = (Math.random()*Math.random()*5+3)/32;
 	Math.random() > .5 ? velocity.x : velocity.x * -1;
 	Math.random() > .5 ? velocity.y : velocity.y * -1;
 	return velocity;

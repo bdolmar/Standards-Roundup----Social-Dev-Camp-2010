@@ -1,6 +1,6 @@
 var SceneController = Class.create();
 SceneController.prototype = {
-  framerate: 1000/30,  
+  framerate: 1000/60,  
 	
   initialize: function(context,bounds) {
 	  this.children = [];
